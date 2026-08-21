@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --border: #E2E5EA;
+  --text: #14171F;
+  --text-muted: #6B7280;
+
+  --accent: #1F2430;
+  --accent-hover: #14171F;
+  --accent-ring: rgba(31, 36, 48, 0.35);
+
+  --priority-low: #16A34A;
+  --priority-medium: #D97706;
+  --priority-high: #EA580C;
+  --priority-urgent: #DC2626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible,
+.p-inputtext:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Desktop table (PrimeVue, plain — no responsive stacking) ---------- */
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding: 0.875rem 1rem;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.12s ease;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background: #FAFAFC;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  border: none;
+  vertical-align: top;
+}
+
+.priority-row-low > td:first-child { box-shadow: inset 3px 0 0 var(--priority-low); }
+.priority-row-medium > td:first-child { box-shadow: inset 3px 0 0 var(--priority-medium); }
+.priority-row-high > td:first-child { box-shadow: inset 3px 0 0 var(--priority-high); }
+.priority-row-urgent > td:first-child { box-shadow: inset 3px 0 0 var(--priority-urgent); }
+
+.p-paginator {
+  background: var(--surface);
+  border: none;
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.p-paginator .p-paginator-page,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-last {
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.p-paginator .p-paginator-page.p-highlight {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+
+.p-paginator .p-paginator-page:not(.p-highlight):hover,
+.p-paginator .p-paginator-prev:hover,
+.p-paginator .p-paginator-next:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Dialog ---------- */
+
+.p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 20px 40px -12px rgba(20, 23, 31, 0.18);
+}
+
+.p-dialog .p-dialog-header {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1rem 1.5rem;
+}
+
+.p-dialog .p-dialog-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Buttons ---------- */
+
+.p-button {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  padding: 0.625rem 1.25rem;
+}
+
+.p-button .p-button-icon {
+  margin-right: 0.5rem;
+}
+
+.p-button .p-button-icon:only-child {
+  margin-right: 0;
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined):hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined),
+.p-button:not(.p-button-text):not(.p-button-outlined) .p-button-label,
+.p-button:not(.p-button-text):not(.p-button-outlined) .p-button-icon {
+  color: #FFFFFF !important;
+}
+
+/* ---------- Inputs, dropdowns, calendar ---------- */
+
+.p-inputtext,
+.p-dropdown,
+.p-calendar .p-inputtext,
+.p-inputtextarea,
+textarea.p-inputtextarea {
+  padding:10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+  background-color: var(--surface);
+}
+
+.p-inputtext:hover:not(:focus),
+.p-dropdown:not(.p-disabled):hover,
+.p-calendar .p-inputtext:hover:not(:focus) {
+  border-color: #C5CAD3;
+}
+
+.p-inputtext:enabled:focus,
+.p-dropdown:not(.p-disabled).p-focus,
+.p-calendar .p-inputtext:enabled:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.p-calendar {
+  display: flex;
+  width: 100%;
+}
+
+.p-calendar .p-inputtext {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.p-calendar .p-datepicker-trigger {
+  flex-shrink: 0;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF !important;
+}
+
+.p-calendar .p-datepicker-trigger:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.p-calendar .p-datepicker-trigger .p-button-icon {
+  color: #FFFFFF !important;
+}
+
+/* ---------- Mobile ticket cards (hand-built, not PrimeVue) ---------- */
+
+.ticket-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.ticket-card.priority-low::before { background: var(--priority-low); }
+.ticket-card.priority-medium::before { background: var(--priority-medium); }
+.ticket-card.priority-high::before { background: var(--priority-high); }
+.ticket-card.priority-urgent::before { background: var(--priority-urgent); }
+
+.ticket-card-subject {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--text);
+  margin-bottom: 0.125rem;
+}
+
+.ticket-card-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  overflow-wrap: break-word;
+}
+
+.ticket-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ticket-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.625rem;
+  border-top: 1px solid var(--border);
+}
+/* ---------- Header nav ---------- */
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nav-link:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav-link-active {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nav-link:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav-link-active {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.nav-link:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav-link-active {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Logout button: icon-only on mobile, label appears on larger screens */
+.logout-btn .p-button-label {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .logout-btn .p-button-label {
+    display: inline;
+  }
+}

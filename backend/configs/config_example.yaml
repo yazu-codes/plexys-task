@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  env: development
+
+corteza:
+  client_id: "510055393849376769"
+  client_secret: "the-actual-secret-from-corteza-admin"
+  auth_base_url: "http://localhost:18080/auth"
+  redirect_uri: "http://localhost:5173/callback"
