@@ -3,7 +3,9 @@ import { ref } from 'vue'
 const AUTH_BASE = `${import.meta.env.VITE_API_URL}/auth`
 const CLIENT_ID = import.meta.env.VITE_OAUTH_CLIENT_ID
 const REDIRECT_URI = import.meta.env.VITE_OAUTH_REDIRECT_URI
-const AUTH_PROXY_URL = import.meta.env.VITE_AUTH_PROXY_URL // your new Go service
+const AUTH_PROXY_URL = import.meta.env.VITE_AUTH_PROXY_URL
+
+console.log("CLIENT ID:", CLIENT_ID)
 
 export const isAuthenticated = ref(!!localStorage.getItem('corteza-access-token'))
 
@@ -36,6 +38,9 @@ export const authService = {
     if (returnedState !== savedState) {
       throw new Error('State mismatch — possible CSRF attempt')
     }
+
+    console.log('AUTH_PROXY_URL:', AUTH_PROXY_URL)  // ADD THIS
+    console.log('Full fetch URL:', `${AUTH_PROXY_URL}/api/auth/exchange`)  // ADD THIS
 
     const response = await fetch(`${AUTH_PROXY_URL}/api/auth/exchange`, {
       method: 'POST',

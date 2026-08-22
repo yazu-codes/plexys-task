@@ -25,12 +25,7 @@ func main() {
 	server.SetupDefaultConfig()
 
 	// Initialize services and repositories
-	cortezaAuthService := services.NewCortezaAuthService(
-		config.Corteza.ClientID,
-		config.Corteza.ClientSecret,
-		config.Corteza.AuthBaseURL,
-		config.Corteza.RedirectURI,
-	)
+	cortezaAuthService := services.NewCortezaAuthService(config.Corteza.ClientID, config.Corteza.ClientSecret, config.Corteza.AuthBaseURL, config.Corteza.RedirectURI, logger)
 	authHandler := handlers.NewCortezaAuthHandler(cortezaAuthService)
 
 	server.Router.POST(

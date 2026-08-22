@@ -3,7 +3,7 @@ server:
   env: development
 
 corteza:
-  client_id: "510055393849376769"
+  client_id: "the-auth-client-id"
   client_secret: "the-actual-secret-from-corteza-admin"
-  auth_base_url: "http://localhost:18080/auth"
+  auth_base_url: "http://corteza-server/auth"
   redirect_uri: "http://localhost:5173/callback"
