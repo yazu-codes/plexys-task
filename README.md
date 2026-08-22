@@ -28,7 +28,7 @@ Browser (Vue 3 SPA)
 ### 1. Clone and prepare environment files
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/yazu-codes/plexys-task
 cd corteza-stack
 
 cp .env.example .env
