@@ -29,7 +29,7 @@ Browser (Vue 3 SPA)
 
 ```bash
 git clone https://github.com/yazu-codes/plexys-task
-cd corteza-stack
+cd plexys-task
 
 cp .env.example .env
 cp frontend/.env.example frontend/.env
