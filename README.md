@@ -169,19 +169,3 @@ docker-compose -f docker-compose.offline.yml build --no-cache
 ```
 
 Then repeat from step 2.
-
-## Project Structure
-
-```
-.
-├── docker-compose.offline.yml   # Local development stack
-├── docker-compose.online.yml    # Production stack (Nginx + Let's Encrypt)
-├── .env.example
-├── scripts/
-│   └── dev-seed.mjs             # Idempotent namespace/module provisioning
-├── backend/                     # Go auth-proxy (OAuth2 token exchange)
-│   └── configs/
-│       └── config.example.yaml
-└── frontend/                    # Vue 3 application
-    └── .env.example
-```
