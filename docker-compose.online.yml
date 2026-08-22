@@ -64,6 +64,8 @@ services:
       DOMAIN: ${DOMAIN:-your-domain.com}
       HTTP_WEBAPP_ENABLED: "false"
       AUTH_JWT_SECRET: ${AUTH_JWT_SECRET:-change-me-to-random-30plus-characters}
+      VIRTUAL_HOST: ${DOMAIN:-your-domain.com}
+      LETSENCRYPT_HOST: ${DOMAIN:-your-domain.com}
     volumes:
       - corteza_data:/data
     networks:
@@ -77,6 +79,49 @@ services:
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
 
+  corteza-init:
+    image: cortezaproject/corteza:${CORTEZA_VERSION:-2024.9}
+    container_name: corteza-init-prod
+    depends_on:
+      corteza-server:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DB_DSN: postgres://corteza:${CORTEZA_DB_PASSWORD:-change-me-in-production}@db:5432/corteza?sslmode=disable
+    networks:
+      - internal
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        echo "=== Creating admin user ==="
+        /corteza/bin/corteza-server users add "$${ADMIN_EMAIL}" --password "$${ADMIN_PASSWORD}" || echo "User may already exist, continuing..."
+        echo "=== Assigning super-admin role ==="
+        /corteza/bin/corteza-server roles useradd super-admin "$${ADMIN_EMAIL}" || echo "Role may already be assigned, continuing..."
+        echo "=== Done ==="
+        exit 0
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: plexys-backend-prod
+    restart: always
+    depends_on:
+      - corteza-server
+    environment:
+      VIRTUAL_HOST: ${AUTH_PROXY_DOMAIN:-auth.your-domain.com}
+      LETSENCRYPT_HOST: ${AUTH_PROXY_DOMAIN:-auth.your-domain.com}
+      VIRTUAL_PORT: "8080"
+    volumes:
+      - ./backend/configs/config.yaml:/app/configs/config.yaml:ro
+    networks:
+      - proxy
+      - internal
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
+
   frontend:
     build:
       context: ./frontend
@@ -85,11 +130,12 @@ services:
     restart: always
     depends_on:
       - corteza-server
+      - backend
     environment:
-      VITE_API_URL: https://${DOMAIN}/api
-      VITE_APP_NAME: ${VITE_APP_NAME:-Plexys}
       VIRTUAL_HOST: ${FRONTEND_DOMAIN:-app.your-domain.com}
       LETSENCRYPT_HOST: ${FRONTEND_DOMAIN:-app.your-domain.com}
+    volumes:
+      - ./frontend/.env:/app/.env:ro
     networks:
       - proxy
     labels:
