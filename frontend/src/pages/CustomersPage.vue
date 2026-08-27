@@ -9,7 +9,6 @@ import InputText from 'primevue/inputtext'
 import Message from 'primevue/message'
 import ProgressSpinner from 'primevue/progressspinner'
 
-// TODO: replace with your real namespace + Customer module ID
 const NAMESPACE = import.meta.env.VITE_CORTEZA_NAMESPACE_ID
 const CUSTOMER_MODULE = import.meta.env.VITE_CORTEZA_CUSTOMER_MODULE_ID
 

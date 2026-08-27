@@ -12,8 +12,6 @@ import Calendar from 'primevue/calendar'
 import Message from 'primevue/message'
 import ProgressSpinner from 'primevue/progressspinner'
 
-// TODO: confirm these against GET /api/compose/namespace and
-// GET /api/compose/namespace/{id}/module before final submission
 const NAMESPACE = import.meta.env.VITE_CORTEZA_NAMESPACE_ID
 const MODULE = import.meta.env.VITE_CORTEZA_TICKET_MODULE_ID
 const CUSTOMER_MODULE = import.meta.env.VITE_CORTEZA_CUSTOMER_MODULE_ID
